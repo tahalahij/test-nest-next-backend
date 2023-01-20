@@ -7,21 +7,5 @@ import { UserLoginDto } from './dtos/user.login.dto';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @HttpCode(200)
-  @ApiResponse({
-    status: 200,
-    description: 'Returns Jwt token for accessing api, that should be sent with each request in authorization header',
-    schema: {
-      example: {
-        accessToken: 'a jwt token',
-      },
-    },
-  })
-  @Post('/login')
-  async handleLogin(
-    @Res({ passthrough: true }) res: Response,
-    @Body() body: UserLoginDto,
-  ): Promise<{ accessToken: string }> {
-    return this.userService.login(body);
-  }
+
 }
