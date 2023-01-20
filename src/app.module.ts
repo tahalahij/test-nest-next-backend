@@ -21,9 +21,8 @@ import { AuthModule } from './auth/auth.module';
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
-      connectionName: 'firstDB',
       useFactory: async (config: ConfigService) => ({
-        uri: config.get('app.firstDB'),
+        uri: config.get('MONGO_CONNECTION_URL'),
         useNewUrlParser: true,
         useUnifiedTopology: true,
       }),
@@ -32,6 +31,6 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, TransactionService],
+  providers: [AppService],
 })
 export class AppModule {}
