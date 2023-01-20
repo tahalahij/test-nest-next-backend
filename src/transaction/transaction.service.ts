@@ -24,15 +24,11 @@ export class TransactionService {
   async getTransactions(userId: number, query: PaginationQueryDto): Promise<Transaction[]> {
     const limit = query.limit || 10;
     const page = query.page || 0;
-    return this.transactionModel.find(
-      {
+    return this.transactionModel
+      .find({
         userId,
-      },
-      {},
-      {
-        skip: limit * page,
-        limit,
-      },
-    );
+      })
+      .skip(limit * page)
+      .limit(limit);
   }
 }
