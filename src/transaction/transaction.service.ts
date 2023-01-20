@@ -1,4 +1,23 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { CreateTransactionDto } from './dtos/create.transaction.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Transaction } from './transaction.schema';
+import { TransactionTypeEnum } from './enums/transaction.type.enum';
 
 @Injectable()
-export class TransactionService {}
+export class TransactionService {
+  private logger = new Logger(TransactionService.name);
+  constructor(@InjectModel(Transaction.name) private transactionModel: Model<Transaction>) {}
+
+  async createTransaction(userId: number, body: CreateTransactionDto, type: TransactionTypeEnum): Promise<Transaction> {
+    const transaction = await this.transactionModel.create({
+      type,
+      userId,
+      amount: body.amount,
+      createdAt: new Date(),
+    });
+    this.logger.log('Transaction created', { transaction });
+    return transaction;
+  }
+}
