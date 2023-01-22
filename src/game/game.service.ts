@@ -11,10 +11,14 @@ export class GameService {
   async getGames(query: PaginationQueryDto): Promise<Game[]> {
     const limit = query.limit || 10;
     const page = query.page || 0;
-    return this.gameModel
-      .find({})
-      .skip(limit * page)
-      .limit(limit);
+    return this.gameModel.find(
+      {},
+      {},
+      {
+        skip: limit * page,
+        limit,
+      },
+    );
   }
 
   async seed(): Promise<Game[]> {
