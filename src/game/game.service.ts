@@ -18,6 +18,9 @@ export class GameService {
   }
 
   async seed(): Promise<Game[]> {
-    return this.gameModel.insertMany([{ name: 'game 1' }, { name: 'game 2' }]);
+    return this.gameModel.insertMany([
+      { name: 'game 1', createdAt: new Date() },
+      { name: 'game 2', createdAt: new Date() },
+    ]);
   }
 }

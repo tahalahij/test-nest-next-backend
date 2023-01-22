@@ -14,7 +14,7 @@ export class Transaction {
   amount: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
-  userId: User;
+  userId: mongoose.Types.ObjectId;
 
   @Prop({ type: Date, required: true })
   createdAt: mongoose.Schema.Types.Date;

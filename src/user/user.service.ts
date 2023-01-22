@@ -26,8 +26,18 @@ export class UserService {
   }
   async seed(): Promise<User[]> {
     return this.userModel.insertMany([
-      { name: 'user 1', email: 'user1@gmail.com', password: this.CryptoService.hashPassword('123') },
-      { name: 'user 2', email: 'user2@gmail.com', password: this.CryptoService.hashPassword('123') },
+      {
+        name: 'user 1',
+        email: 'user1@gmail.com',
+        password: await this.CryptoService.hashPassword('123'),
+        createdAt: new Date(),
+      },
+      {
+        name: 'user 2',
+        email: 'user2@gmail.com',
+        password: await this.CryptoService.hashPassword('123'),
+        createdAt: new Date(),
+      },
     ]);
   }
 }
