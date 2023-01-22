@@ -12,7 +12,7 @@ export class TransactionService {
   constructor(@InjectModel(Transaction.name) private transactionModel: Model<Transaction>) {}
 
   async createTransaction(
-    userId: mongoose.Types.ObjectId,
+    userId: string,
     body: CreateTransactionDto,
     type: TransactionTypeEnum,
   ): Promise<Transaction> {

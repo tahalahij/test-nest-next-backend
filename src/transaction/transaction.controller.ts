@@ -14,7 +14,7 @@ export class TransactionController {
 
   @UseGuards(JwtAuthGuard)
   @Post('/deposit')
-  async deposit(@Body() body: CreateTransactionDto, @UserId() userId: mongoose.Types.ObjectId): Promise<Transaction> {
+  async deposit(@Body() body: CreateTransactionDto, @UserId() userId: string): Promise<Transaction> {
     return this.transactionService.createTransaction(userId, body, TransactionTypeEnum.DEPOSIT);
   }
 
@@ -22,7 +22,7 @@ export class TransactionController {
   @Post('/withdrawal')
   async withdrawal(
     @Body() body: CreateTransactionDto,
-    @UserId() userId: mongoose.Types.ObjectId,
+    @UserId() userId: string,
   ): Promise<Transaction> {
     return this.transactionService.createTransaction(userId, body, TransactionTypeEnum.WITHDRAWAL);
   }
