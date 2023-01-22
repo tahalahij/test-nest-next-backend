@@ -18,5 +18,6 @@ async function bootstrap() {
     credentials: true,
   });
   await app.listen(+process.env.PORT);
+  console.log(`Doc is available on http://localhost:${+process.env.PORT}/api `);
 }
 bootstrap();

@@ -26,6 +26,15 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+
+in order to run the project yiu need a running mongo instance which the dockerized version will be by:
+```shell
+docker-compose up
+```
+
+## Doc
+swagger doc is available on http://localhost:3000/api
+
 ## Installation
 
 ```bash
