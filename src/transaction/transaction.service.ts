@@ -31,4 +31,13 @@ export class TransactionService {
       .skip(limit * page)
       .limit(limit);
   }
+
+  async seed(): Promise<Transaction[]> {
+    return this.transactionModel.insertMany([
+      { userId: 1, amount: 1000, type: TransactionTypeEnum.DEPOSIT },
+      { userId: 1, amount: 1000, type: TransactionTypeEnum.WITHDRAWAL },
+      { userId: 2, amount: 1000, type: TransactionTypeEnum.DEPOSIT },
+      { userId: 2, amount: 1000, type: TransactionTypeEnum.WITHDRAWAL },
+    ]);
+  }
 }

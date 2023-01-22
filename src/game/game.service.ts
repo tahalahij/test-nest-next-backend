@@ -16,4 +16,8 @@ export class GameService {
       .skip(limit * page)
       .limit(limit);
   }
+
+  async seed(): Promise<Game[]> {
+    return this.gameModel.insertMany([{ name: 'game 1' }, { name: 'game 2' }]);
+  }
 }

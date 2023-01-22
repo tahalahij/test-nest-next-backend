@@ -33,4 +33,9 @@ export class CryptoService {
     );
     return hash === hashFromPassword.toString('hex');
   }
+
+  async hashPassword(password: string) {
+    const hashPass = await this.pbkdf2Async(password, this.salt, this.iterations, this.keylen, this.algorithm);
+    return hashPass.toString('hex');
+  }
 }

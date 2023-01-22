@@ -5,6 +5,7 @@ import { User } from './user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { CryptoService } from './crypto.service';
 import { CONSTANTS } from './constants/constants';
+
 @Injectable()
 export class UserService {
   constructor(private CryptoService: CryptoService, @InjectModel(User.name) private userModel: Model<User>) {}
@@ -22,5 +23,11 @@ export class UserService {
       id: user._id,
       name: user.name,
     };
+  }
+  async seed(): Promise<User[]> {
+    return this.userModel.insertMany([
+      { name: 'user 1', email: 'user1@gmail.com', password: this.CryptoService.hashPassword('123') },
+      { name: 'user 2', email: 'user2@gmail.com', password: this.CryptoService.hashPassword('123') },
+    ]);
   }
 }

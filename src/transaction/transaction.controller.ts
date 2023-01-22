@@ -28,4 +28,9 @@ export class TransactionController {
   async getTransactions(@UserId() userId: number, @Query() queryDto: PaginationQueryDto): Promise<Transaction[]> {
     return this.transactionService.getTransactions(userId, queryDto);
   }
+
+  @Post('/seed')
+  async seed(): Promise<Transaction[]> {
+    return this.transactionService.seed();
+  }
 }
