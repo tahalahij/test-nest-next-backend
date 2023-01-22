@@ -11,11 +11,7 @@ export class TransactionService {
   private logger = new Logger(TransactionService.name);
   constructor(@InjectModel(Transaction.name) private transactionModel: Model<Transaction>) {}
 
-  async createTransaction(
-    userId: string,
-    body: CreateTransactionDto,
-    type: TransactionTypeEnum,
-  ): Promise<Transaction> {
+  async createTransaction(userId: string, body: CreateTransactionDto, type: TransactionTypeEnum): Promise<Transaction> {
     const transaction = await this.transactionModel.create({
       type,
       userId,
@@ -28,12 +24,16 @@ export class TransactionService {
   async getTransactions(userId: mongoose.Types.ObjectId, query: PaginationQueryDto): Promise<Transaction[]> {
     const limit = query.limit || 10;
     const page = query.page || 0;
-    return this.transactionModel
-      .find({
+    return this.transactionModel.find(
+      {
         userId,
-      })
-      .skip(limit * page)
-      .limit(limit);
+      },
+      {},
+      {
+        skip: limit * page,
+        limit,
+      },
+    );
   }
 
   async seed(): Promise<Transaction[]> {
