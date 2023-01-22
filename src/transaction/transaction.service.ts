@@ -38,16 +38,26 @@ export class TransactionService {
 
   async seed(): Promise<Transaction[]> {
     return this.transactionModel.insertMany([
-      { userId: new mongoose.Types.ObjectId(), amount: 1000, type: TransactionTypeEnum.DEPOSIT, createdAt: new Date() },
       {
-        userId: new mongoose.Types.ObjectId(),
+        userId: new mongoose.Types.ObjectId('63cd1f5e9c9abe5feca3fad6'),
+        amount: 1000,
+        type: TransactionTypeEnum.DEPOSIT,
+        createdAt: new Date(),
+      },
+      {
+        userId: new mongoose.Types.ObjectId('63cd1f5e9c9abe5feca3fad6'),
         amount: 1000,
         type: TransactionTypeEnum.WITHDRAWAL,
         createdAt: new Date(),
       },
-      { userId: new mongoose.Types.ObjectId(), amount: 1000, type: TransactionTypeEnum.DEPOSIT, createdAt: new Date() },
       {
-        userId: new mongoose.Types.ObjectId(),
+        userId: new mongoose.Types.ObjectId('63cd1f12cef39cbd9234a20c'),
+        amount: 1000,
+        type: TransactionTypeEnum.DEPOSIT,
+        createdAt: new Date(),
+      },
+      {
+        userId: new mongoose.Types.ObjectId('63cd1f12cef39cbd9234a20c'),
         amount: 1000,
         type: TransactionTypeEnum.WITHDRAWAL,
         createdAt: new Date(),

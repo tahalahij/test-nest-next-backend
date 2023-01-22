@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserLoginDto } from './dtos/user.login.dto';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { User } from './user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { CryptoService } from './crypto.service';
@@ -20,6 +20,7 @@ export class UserService {
       throw new UnauthorizedException(CONSTANTS.LOGIN_FAILED);
     }
     return {
+      // the data that will be stored in JWT
       id: user._id,
       name: user.name,
     };
@@ -27,12 +28,14 @@ export class UserService {
   async seed(): Promise<User[]> {
     return this.userModel.insertMany([
       {
+        _id: new mongoose.Types.ObjectId('63cd1f5e9c9abe5feca3fad6'),
         name: 'user 1',
         email: 'user1@gmail.com',
         password: await this.CryptoService.hashPassword('123'),
         createdAt: new Date(),
       },
       {
+        _id: new mongoose.Types.ObjectId('63cd1f12cef39cbd9234a20c'),
         name: 'user 2',
         email: 'user2@gmail.com',
         password: await this.CryptoService.hashPassword('123'),
