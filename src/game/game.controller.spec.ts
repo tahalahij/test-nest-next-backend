@@ -1,18 +1,40 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GameController } from './game.controller';
+import { GameService } from './game.service';
+import { getModelToken } from '@nestjs/mongoose';
+import { Game, GameDocument } from './Game.schema';
+import { Model } from 'mongoose';
 
-describe('GameController', () => {
-  let controller: GameController;
+describe('GameService', () => {
+  let service: GameService;
+  let gameModel: Model<GameDocument>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [GameController],
+      providers: [
+        GameService,
+        {
+          provide: getModelToken(Game.name),
+          useFactory: Game,
+        },
+      ],
     }).compile();
 
-    controller = module.get<GameController>(GameController);
+    service = module.get<GameService>(GameService);
+    gameModel = module.get<Model<Game>>(getModelToken(Game.name));
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(service).toBeDefined();
+  });
+
+  it('should return array of 1 Game', async () => {
+    const res = await gameModel.create({
+      name: 'game 1',
+      createdAt: new Date(),
+    });
+
+    const games = await service.getGames({});
+    expect(games).toHaveProperty('length', 1);
+    expect(games[0]).toHaveProperty('name', 'game 1');
   });
 });

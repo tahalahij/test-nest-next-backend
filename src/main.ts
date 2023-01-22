@@ -17,7 +17,6 @@ async function bootstrap() {
     preflightContinue: false,
     credentials: true,
   });
-}
   await app.listen(+process.env.PORT);
 }
 bootstrap();
